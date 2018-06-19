@@ -6,13 +6,37 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>History Trivia Game</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="assets/css/reset.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="assets/css/style.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="main.js"></script>
+    <script src="assets/javascript/app.js"></script>
 </head>
 
 <body>
-
+    <div id="mainContent">
+        <h1>Welcome to History Trivia!</h1>
+        <h3 id="welcomePrompt">Press any key to begin</h3>
+        <h3 id="timer"></h3>
+        <h3 id="question"></h3>
+        <div id="answers">
+            <form>
+                <input type="radio" id="option1" name="radioForm">
+                <label for="option1"></label>
+                <br>
+                <input type="radio" id="option2" name="radioForm">
+                <label for="option2"></label>
+                <br>
+                <input type="radio" id="option3" name="radioForm">
+                <label for="option3"></label>
+                <br>
+                <input type="radio" id="option4" name="radioForm">
+                <label for="option4"></label>
+                <br>
+                <br>
+                <input type="submit" value="Submit">
+            </form>
+        </div>
+    </div>
 </body>
 
 </html>
