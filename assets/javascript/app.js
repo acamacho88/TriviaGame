@@ -6,7 +6,8 @@ questionDetails = [{
         "Apollo 11",
         "Apollo 13"
     ],
-    "CorrectIndex": 2
+    "CorrectIndex": 2,
+    "Ending": "assets/images/apollo11.gif"
 }, {
     "Question": "Which of these events happened first?",
     "Answers": [
@@ -15,7 +16,8 @@ questionDetails = [{
         "Black Death",
         "Mongol conquest"
     ],
-    "CorrectIndex": 3
+    "CorrectIndex": 3,
+    "Ending": "assets/images/mongolempire.gif"
 }, {
     "Question": "Who was US President during the First World War?",
     "Answers": [
@@ -24,7 +26,8 @@ questionDetails = [{
         "Lyndon Johnson",
         "Gerald Ford"
     ],
-    "CorrectIndex": 0
+    "CorrectIndex": 0,
+    "Ending": "assets/images/woodrowwilson.jpg"
 }, {
     "Question": "In what year did the Berlin Wall come down?",
     "Answers": [
@@ -33,7 +36,8 @@ questionDetails = [{
         "1989",
         "1991"
     ],
-    "CorrectIndex": 2
+    "CorrectIndex": 2,
+    "Ending": "assets/images/berlinwall.gif"
 }, {
     "Question": "1492 saw the sailing of Columbus and what other event?",
     "Answers": [
@@ -42,7 +46,8 @@ questionDetails = [{
         "Queen Elizabeth defeats the Spanish Armada",
         "Charlemagne is crowned ruler of the Holy Roman Empire"
     ],
-    "CorrectIndex": 1
+    "CorrectIndex": 1,
+    "Ending": "assets/images/spanishinquisition.gif"
 }, {
     "Question": "Who was the head of the Bolsheviks during the Russian Revolution?",
     "Answers": [
@@ -51,43 +56,82 @@ questionDetails = [{
         "Karl Marx",
         "Vladimir Lenin"
     ],
-    "CorrectIndex": 3
+    "CorrectIndex": 3,
+    "Ending": "assets/images/lenin.gif"
 }]
 
 $(document).ready(function () {
-    var populateFields = function (currentQ) {
+    var currentQ = 0;
+
+    var nWins = 0;
+
+    var populateFields = function () {
+        $('.card').show();
+        $('#questionImg').hide();
         var details = questionDetails[currentQ];
         $('#question').text(details["Question"]);
         for (var i = 1; i <= details["Answers"].length; i++) {
-            $('#option' + i + ' + label').text(details["Answers"][i - 1]);
+            $('#card' + i).text(details["Answers"][i - 1]);
         }
+        // startTimer();
     }
 
-    $('input').hide();
+    var setImage = function (qData) {
+        var imgEl = $('#questionImg');
+        imgEl.attr('src', qData["Ending"]);
+        imgEl.show();
+    }
 
-    var timeLeft = 30;
+    var nextQuestion = function () {
+        $('.card').hide();
+        var qData = questionDetails[currentQ];
+        $('#question').text("The answer was " + qData["Answers"][qData["CorrectIndex"]]);
+        setImage(qData);
+        setTimeout(function () {
+            currentQ++;
+            // populateFields(currentQ);
+        }, 4000);
+    }
+
+    var startTimer = function () {
+        var timeLeft = 15;
+        var timerElement = $('#timer');
+        var timer = setInterval(function () {
+            timerElement.text(timeLeft);
+            timeLeft--;
+            if (timeLeft < 0) {
+                clearInterval(timer);
+            }
+        }, 1000)
+        $('.card').on("click", function () {
+            if (this.id[4] == questionDetails[currentQ]["CorrectIndex"]) {
+                clearInterval(timer);
+                nWins++;
+            }
+            return;
+        })
+
+    }
+
+    $('.card').hide();
+
+    var questionImg = $('#questionImg');
+    questionImg.hide();
 
     document.onkeyup = function (event) {
-        if (timeLeft == 30) {
-            $('#welcomePrompt').hide();
-
-            $('input').show();
-
-            var currentQ = 0;
+        if ($('#welcomePrompt').is(':visible')) {
 
             var timerElement = $('#timer');
 
-            $('#question').text(questionDetails[0]["Question"]);
+            $('#welcomePrompt').hide();
 
-            populateFields(currentQ);
+            // populateFields();
 
-            var timer = setInterval(function () {
-                timerElement.text(timeLeft);
-                timeLeft--;
-                if (timeLeft < 0) {
-                    clearInterval(timer);
-                }
-            }, 1000)
+            for (var i = 0; i < questionDetails.length; i++) {
+                if (i !== 0) nextQuestion();
+                populateFields();
+                startTimer();
+            }
         }
     }
 })

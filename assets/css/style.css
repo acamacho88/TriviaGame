@@ -23,6 +23,21 @@ input {
     margin-left: 50%;
 }
 
+.card {
+    background-color: lightgreen;
+    text-align: center;
+    margin-left: 30%;
+    margin-right: 30%;
+    margin-bottom: 15px;
+    margin-top: 15px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.card:hover {
+    background-color: greenyellow;
+}
+
 #answers {
     text-align: center;
 }
