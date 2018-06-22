@@ -73,7 +73,7 @@ $(document).ready(function () {
         for (var i = 1; i <= details["Answers"].length; i++) {
             $('#card' + i).text(details["Answers"][i - 1]);
         }
-        // startTimer();
+        startTimer();
     }
 
     var setImage = function (qData) {
@@ -88,29 +88,45 @@ $(document).ready(function () {
         $('#question').text("The answer was " + qData["Answers"][qData["CorrectIndex"]]);
         setImage(qData);
         setTimeout(function () {
-            currentQ++;
-            // populateFields(currentQ);
+            if (currentQ < questionDetails.length - 1) {
+                currentQ++;
+                populateFields(currentQ);
+            } else {
+                endOfGame();
+            }
         }, 4000);
     }
 
     var startTimer = function () {
-        var timeLeft = 15;
+        var timeLeft = 5;
         var timerElement = $('#timer');
         var timer = setInterval(function () {
             timerElement.text(timeLeft);
             timeLeft--;
             if (timeLeft < 0) {
                 clearInterval(timer);
+                nextQuestion();
             }
         }, 1000)
         $('.card').on("click", function () {
             if (this.id[4] == questionDetails[currentQ]["CorrectIndex"]) {
-                clearInterval(timer);
                 nWins++;
             }
-            return;
+            clearInterval(timer);
+            nextQuestion();
         })
+    }
 
+    var endOfGame = function () {
+        var welcome = $('#welcomePrompt');
+        welcome.text("Press any key to start over");
+        welcome.show();
+        $('#questionImg').hide();
+        $('#timer').text("Correct answers: " + nWins);
+        var nIncorrect = questionDetails.length - nWins;
+        $('#question').text("Incorrect answers: " + nIncorrect);
+        currentQ = 0;
+        nWins = 0;
     }
 
     $('.card').hide();
@@ -119,19 +135,23 @@ $(document).ready(function () {
     questionImg.hide();
 
     document.onkeyup = function (event) {
-        if ($('#welcomePrompt').is(':visible')) {
+        var welcome = $('#welcomePrompt');
+        if (welcome.is(':visible')) {
 
             var timerElement = $('#timer');
 
-            $('#welcomePrompt').hide();
+            welcome.hide();
 
             // populateFields();
 
-            for (var i = 0; i < questionDetails.length; i++) {
-                if (i !== 0) nextQuestion();
-                populateFields();
-                startTimer();
-            }
+
+            //nextQuestion();
+            populateFields();
+            // startTimer();
+            // nextQuestion();
+            /* welcome.text("Press any key to start over");
+            $('#timer').text("Correct answers: " + nWins);
+            $('#question').text("Incorrect answers: " + questionDetails.length - nWins); */
         }
     }
 })
