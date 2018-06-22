@@ -64,6 +64,7 @@ $(document).ready(function () {
     var currentQ = 0;
 
     var nWins = 0;
+    var prevWins = 0;
 
     var populateFields = function () {
         $('.card').show();
@@ -85,7 +86,12 @@ $(document).ready(function () {
     var nextQuestion = function () {
         $('.card').hide();
         var qData = questionDetails[currentQ];
-        $('#question').text("The answer was " + qData["Answers"][qData["CorrectIndex"]]);
+        if (prevWins == nWins) {
+            $('#question').text("Incorrect, the answer was " + qData["Answers"][qData["CorrectIndex"]]);
+        } else {
+            $('#question').text("Correct! The answer was " + qData["Answers"][qData["CorrectIndex"]]);
+        }
+        prevWins = nWins;
         setImage(qData);
         setTimeout(function () {
             if (currentQ < questionDetails.length - 1) {
