@@ -108,6 +108,7 @@ $(document).ready(function () {
                 nextQuestion();
             }
         }, 1000)
+        $('.card').unbind('click');
         $('.card').on("click", function () {
             if (this.id[4] == questionDetails[currentQ]["CorrectIndex"]) {
                 nWins++;
