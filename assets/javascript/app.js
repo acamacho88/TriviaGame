@@ -134,6 +134,7 @@ $(document).ready(function () {
         $('#question').text("Incorrect answers: " + nIncorrect);
         currentQ = 0;
         nWins = 0;
+        prevWins = 0;
     }
 
     $('.card').hide();
