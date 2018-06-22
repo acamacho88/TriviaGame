@@ -98,7 +98,7 @@ $(document).ready(function () {
     }
 
     var startTimer = function () {
-        var timeLeft = 5;
+        var timeLeft = 30;
         var timerElement = $('#timer');
         var timer = setInterval(function () {
             timerElement.text(timeLeft);
