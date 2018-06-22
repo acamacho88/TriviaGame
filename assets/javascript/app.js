@@ -110,7 +110,7 @@ $(document).ready(function () {
         }, 1000)
         $('.card').unbind('click');
         $('.card').on("click", function () {
-            if (this.id[4] == questionDetails[currentQ]["CorrectIndex"]) {
+            if (this.id[4] == (questionDetails[currentQ]["CorrectIndex"] + 1)) {
                 nWins++;
             }
             clearInterval(timer);
