@@ -61,7 +61,7 @@ questionDetails = [{
 }]
 
 // Load all images at start so user doesn't have to wait for them when they are shown
-questionDetails.forEach(el = () => {
+questionDetails.forEach(el => {
     var test = $("<img>");
     test.attr("src",el["Ending"]);
 })
