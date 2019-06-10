@@ -60,6 +60,12 @@ questionDetails = [{
     "Ending": "assets/images/lenin.gif"
 }]
 
+// Load all images at start so user doesn't have to wait for them when they are shown
+questionDetails.forEach(el = () => {
+    var test = $("<img>");
+    test.attr("src",el["Ending"]);
+})
+
 $(document).ready(function () {
     var currentQ = 0;
 
