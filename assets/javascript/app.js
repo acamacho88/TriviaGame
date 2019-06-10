@@ -83,11 +83,10 @@ $(document).ready(function () {
         imgEl = $('<img>');
         imgEl.attr('src',qData["Ending"]);
         imgEl.attr("id","questionImg");
-        $("#mainContent").append(imgEl);
+        return imgEl;
     }
 
     var nextQuestion = function () {
-        $('.card').hide();
         var qData = questionDetails[currentQ];
         if (prevWins == nWins) {
             $('#question').text("Incorrect, the answer was " + qData["Answers"][qData["CorrectIndex"]]);
@@ -95,7 +94,10 @@ $(document).ready(function () {
             $('#question').text("Correct! The answer was " + qData["Answers"][qData["CorrectIndex"]]);
         }
         prevWins = nWins;
-        setImage(qData);
+        var imgEl = setImage(qData);
+        prevWins = nWins;
+        $('.card').hide();
+        $("#mainContent").append(imgEl);
         setTimeout(function () {
             if (currentQ < questionDetails.length - 1) {
                 currentQ++;
