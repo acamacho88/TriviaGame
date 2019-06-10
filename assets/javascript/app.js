@@ -151,20 +151,9 @@ $(document).ready(function () {
         var welcome = $('#welcomePrompt');
         if (welcome.is(':visible')) {
 
-            var timerElement = $('#timer');
-
             welcome.hide();
 
-            // populateFields();
-
-
-            //nextQuestion();
             populateFields();
-            // startTimer();
-            // nextQuestion();
-            /* welcome.text("Press any key to start over");
-            $('#timer').text("Correct answers: " + nWins);
-            $('#question').text("Incorrect answers: " + questionDetails.length - nWins); */
         }
     }
 })
