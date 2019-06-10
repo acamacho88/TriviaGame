@@ -79,8 +79,11 @@ $(document).ready(function () {
 
     var setImage = function (qData) {
         var imgEl = $('#questionImg');
-        imgEl.attr('src', qData["Ending"]);
-        imgEl.show();
+        imgEl.remove();
+        imgEl = $('<img>');
+        imgEl.attr('src',qData["Ending"]);
+        imgEl.attr("id","questionImg");
+        $("#mainContent").append(imgEl);
     }
 
     var nextQuestion = function () {
